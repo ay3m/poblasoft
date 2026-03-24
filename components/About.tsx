@@ -1,84 +1,61 @@
-import { CheckCircle, MapPin } from "lucide-react";
+"use client";
 
-const highlights = [
-  "Técnico matriculado por la Cámara Argentina de Calefacción, Aire Acondicionado y Refrigeración",
-  "Atendemos todo Corrientes Capital y alrededores",
-  "Presupuesto sin costo, sin compromiso",
-  "Garantía en repuestos y mano de obra",
-  "Trabajo prolijo, puntual y profesional",
+import { FadeUp, StaggerContainer, StaggerItem } from "@/components/ui/Motion";
+
+const steps = [
+  {
+    num: "01",
+    title: "Contactanos",
+    desc: "Escribinos por WhatsApp o llamanos. Te respondemos el mismo día.",
+  },
+  {
+    num: "02",
+    title: "Diagnóstico",
+    desc: "Vamos a tu domicilio, revisamos el equipo y te damos un presupuesto sin cargo.",
+  },
+  {
+    num: "03",
+    title: "Trabajo garantizado",
+    desc: "Realizamos el servicio con materiales de calidad. Todo el trabajo tiene garantía.",
+  },
 ];
 
 export default function About() {
   return (
-    <section
-      id="nosotros"
-      className="py-20"
-      style={{
-        background: "linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%)",
-      }}
-    >
-      <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-        {/* Visual block */}
-        <div className="relative">
-          <div className="gradient-hero rounded-3xl p-10 text-white shadow-2xl">
-            <div className="text-6xl font-black text-white/20 leading-none select-none mb-2">GR</div>
-            <h3 className="text-2xl font-bold mb-1">Gekko Refrigeración</h3>
-            <div className="flex items-center gap-1.5 text-blue-200 text-sm mb-6">
-              <MapPin size={14} />
-              Corrientes Capital, Argentina
-            </div>
-
-            <div className="bg-white/15 rounded-2xl p-5 space-y-3 text-sm">
-              <div className="flex items-start gap-3">
-                <span className="text-green-300 text-base mt-0.5">✓</span>
-                <span>Técnico Matriculado · Trabajo habilitado</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-green-300 text-base mt-0.5">✓</span>
-                <span>Equipos Split inverter, Split estándar y Ventana</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="text-green-300 text-base mt-0.5">✓</span>
-                <span>Atención personalizada y rápida respuesta</span>
-              </div>
-            </div>
-
-            <div className="mt-6 border-t border-white/20 pt-5 text-xs text-blue-200 leading-relaxed">
-              Matriculado por la Cámara Argentina de Calefacción,<br />
-              Aire Acondicionado y Calefacción (CACAYR)
-            </div>
+    <section id="nosotros" className="py-24" style={{ background: "linear-gradient(180deg,#f0f7ff 0%,#ffffff 100%)" }}>
+      <div className="max-w-5xl mx-auto px-6">
+        <FadeUp>
+          <div className="text-center mb-14">
+            <span className="text-blue-600 font-semibold text-xs uppercase tracking-widest">Cómo trabajamos</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-2">
+              Simple y sin vueltas
+            </h2>
           </div>
+        </FadeUp>
 
-          {/* Floating badge */}
-          <div className="absolute -top-4 -right-4 bg-yellow-400 text-yellow-900 font-bold text-xs px-4 py-2 rounded-full shadow-lg rotate-3">
-            Matriculado ✓
-          </div>
-        </div>
+        <div className="grid md:grid-cols-3 gap-8 relative">
+          {/* Connector line (desktop) */}
+          <div className="hidden md:block absolute top-8 left-[calc(16.66%+16px)] right-[calc(16.66%+16px)] h-0.5 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-200" />
 
-        {/* Text content */}
-        <div>
-          <span className="text-blue-600 font-semibold text-sm uppercase tracking-widest">
-            Sobre nosotros
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-2 mb-4">
-            Profesionales en<br />refrigeración
-          </h2>
-          <div className="section-divider" style={{ margin: "0 0 1.5rem 0" }} />
-          <p className="text-slate-600 leading-relaxed mb-7">
-            Somos <strong>Gekko Refrigeración</strong>, tu servicio técnico de confianza en Corrientes Capital.
-            Nos especializamos en instalación, mantenimiento y reparación de aires acondicionados,
-            con la garantía de un trabajo profesional y matriculado.
-          </p>
-
-          <ul className="space-y-3">
-            {highlights.map((item) => (
-              <li key={item} className="flex items-start gap-3 text-slate-700">
-                <CheckCircle size={18} className="text-blue-600 shrink-0 mt-0.5" />
-                <span className="text-sm leading-relaxed">{item}</span>
-              </li>
+          <StaggerContainer className="contents">
+            {steps.map(({ num, title, desc }) => (
+              <StaggerItem key={num}>
+                <div className="flex flex-col items-center text-center relative">
+                  <div className="w-16 h-16 rounded-full gradient-hero flex items-center justify-center text-white font-black text-xl mb-5 shadow-lg relative z-10">
+                    {num}
+                  </div>
+                  <h3 className="font-bold text-slate-900 text-lg mb-2">{title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed max-w-[200px]">{desc}</p>
+                </div>
+              </StaggerItem>
             ))}
-          </ul>
+          </StaggerContainer>
         </div>
+
+        {/* Bottom note */}
+        <p className="text-center text-slate-400 text-xs mt-12">
+          Técnico Matriculado · Cámara Argentina de Calefacción, Aire Acondicionado y Refrigeración
+        </p>
       </div>
     </section>
   );
