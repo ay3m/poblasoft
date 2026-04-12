@@ -17,7 +17,7 @@ export default function Footer() {
           <StaggerItem>
             <div>
               <div className="flex items-center gap-2.5 mb-3">
-                <Image src="/images/logo.jpg" alt="Gekko Refrigeración" width={36} height={36} className="rounded-full" />
+                <Image src="/images/logo-nobg.png" alt="Gekko Refrigeración" width={36} height={36} className="rounded-full" />
                 <h3 className="font-bold text-lg">
                   Gekko <span className="text-gradient-ice">Refrigeración</span>
                 </h3>
