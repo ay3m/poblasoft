@@ -25,7 +25,6 @@ const stats = [
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollY } = useScroll();
-  const imgY = useTransform(scrollY, [0, 600], [0, 60]);
   const contentOpacity = useTransform(scrollY, [0, 500], [1, 0]);
   const contentY = useTransform(scrollY, [0, 600], [0, 80]);
 
@@ -33,20 +32,15 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="inicio"
-      className="relative min-h-screen flex items-center pt-20 pb-32 overflow-hidden bg-[#020617]"
+      className="relative min-h-screen flex items-center pt-20 pb-32 overflow-hidden"
+      style={{
+        background: "linear-gradient(160deg, #020617 0%, #0c4a6e 55%, #0e7490 100%)",
+      }}
     >
-      {/* Background image with parallax */}
-      <motion.div className="absolute inset-0" style={{ y: imgY }}>
-        <Image
-          src="/images/hero-bg.jpg"
-          alt="Interior moderno climatizado"
-          fill
-          className="object-cover"
-          sizes="100vw"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/90 via-[#020617]/70 to-[#020617]/50" />
-      </motion.div>
+      {/* Subtle radial accents */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: "radial-gradient(ellipse 60% 50% at 20% 80%, rgba(6,182,212,0.12) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 75% 25%, rgba(56,189,248,0.08) 0%, transparent 50%)",
+      }} />
 
       {/* Content */}
       <motion.div
@@ -112,18 +106,18 @@ export default function Hero() {
             </StaggerContainer>
           </div>
 
-          {/* Right — Image */}
+          {/* Right — Image with VISIBLE split AC */}
           <div className="hidden lg:block">
             <FadeIn delay={0.3}>
               <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/40 border border-white/10">
                 <Image
                   src="/images/hero-interior.jpg"
-                  alt="Hogar moderno con climatización profesional"
+                  alt="Living moderno con aire acondicionado split instalado"
                   width={600}
-                  height={400}
-                  className="object-cover w-full h-[360px]"
+                  height={500}
+                  className="object-cover w-full h-[400px]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/50 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/40 via-transparent to-transparent" />
               </div>
             </FadeIn>
           </div>
