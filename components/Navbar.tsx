@@ -46,7 +46,7 @@ export default function Navbar() {
         {/* Logo */}
         <a href="#inicio" className="flex items-center gap-2">
           <Image
-            src="/images/logo-nobg.png"
+            src="/images/gecko-icon.png"
             alt="Gekko Refrigeración"
             width={36}
             height={36}

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { MessageCircle, Search, ShieldCheck } from "lucide-react";
 import { FadeUp, SlideLeft, SlideRight } from "@/components/ui/Motion";
+import GeckoIcon from "@/components/ui/GeckoIcon";
 import { SECTION_PY, CONTAINER, HEADER_MB, LABEL_LIGHT, ICON_SM, ICON_LG } from "@/lib/design-tokens";
 
 const steps = [
@@ -77,8 +78,8 @@ export default function About() {
 
         <FadeUp delay={0.2}>
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-200 bg-white text-xs text-slate-500">
-              <ShieldCheck size={ICON_SM} className="text-cyan-500" />
+            <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-slate-200 bg-white text-xs text-slate-500">
+              <GeckoIcon size={20} />
               Técnico Matriculado · Cámara Argentina de Calefacción, Aire Acondicionado y Refrigeración
             </div>
           </div>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, ChevronDown } from "lucide-react";
 import { SlideLeft, SlideRight } from "@/components/ui/Motion";
+import GeckoIcon from "@/components/ui/GeckoIcon";
 import { WA_URL, PHONE_DISPLAY, EMAIL, INSTAGRAM, INSTAGRAM_URL } from "@/lib/constants";
 import { SECTION_PY, CONTAINER, LABEL_LIGHT, ICON_SM, BTN_LG } from "@/lib/design-tokens";
 
@@ -81,7 +82,10 @@ export default function ContactForm() {
           <div className="bg-white rounded-2xl shadow-lg shadow-slate-200/50 p-8 border border-slate-100 relative overflow-hidden">
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400" />
 
-            <h3 className="font-bold text-slate-900 text-lg mb-6">Solicitá tu presupuesto</h3>
+            <div className="flex items-center gap-2.5 mb-6">
+              <GeckoIcon size={28} />
+              <h3 className="font-bold text-slate-900 text-lg">Solicitá tu presupuesto</h3>
+            </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>

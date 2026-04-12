@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { Phone } from "lucide-react";
 import { useScroll, useTransform, motion } from "framer-motion";
 import Image from "next/image";
+import GeckoIcon from "@/components/ui/GeckoIcon";
 import { FadeIn, FadeUp, StaggerContainer, StaggerItem, AnimatedLink } from "@/components/ui/Motion";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import { WA_URL, PHONE_NUMBER } from "@/lib/constants";
@@ -51,8 +52,8 @@ export default function Hero() {
           {/* Left — Text */}
           <div className="text-center lg:text-left">
             <FadeIn delay={0}>
-              <div className="inline-flex items-center gap-2 glass rounded-full px-5 py-2 mb-8 text-sm font-medium text-white/80">
-                <span className="w-2 h-2 rounded-full bg-cyan-400" />
+              <div className="inline-flex items-center gap-2.5 glass rounded-full px-5 py-2 mb-8 text-sm font-medium text-white/80">
+                <GeckoIcon size={18} className="opacity-70" />
                 Corrientes Capital · Técnico Matriculado
               </div>
             </FadeIn>
