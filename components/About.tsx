@@ -1,20 +1,26 @@
 "use client";
 
-import { FadeUp, StaggerContainer, StaggerItem } from "@/components/ui/Motion";
+import Image from "next/image";
+import { MessageCircle, Search, ShieldCheck } from "lucide-react";
+import { FadeUp, SlideLeft, SlideRight } from "@/components/ui/Motion";
+import { SECTION_PY, CONTAINER, HEADER_MB, LABEL_LIGHT, ICON_SM, ICON_LG } from "@/lib/design-tokens";
 
 const steps = [
   {
     num: "01",
+    icon: MessageCircle,
     title: "Contactanos",
     desc: "Escribinos por WhatsApp o llamanos. Te respondemos el mismo día.",
   },
   {
     num: "02",
+    icon: Search,
     title: "Diagnóstico",
     desc: "Vamos a tu domicilio, revisamos el equipo y te damos un presupuesto sin cargo.",
   },
   {
     num: "03",
+    icon: ShieldCheck,
     title: "Trabajo garantizado",
     desc: "Realizamos el servicio con materiales de calidad. Todo el trabajo tiene garantía.",
   },
@@ -22,40 +28,61 @@ const steps = [
 
 export default function About() {
   return (
-    <section id="nosotros" className="py-24" style={{ background: "linear-gradient(180deg,#f0f7ff 0%,#ffffff 100%)" }}>
-      <div className="max-w-5xl mx-auto px-6">
+    <section id="nosotros" className={`${SECTION_PY} bg-gradient-to-b from-[#f0f9ff] to-white`}>
+      <div className={CONTAINER}>
         <FadeUp>
-          <div className="text-center mb-14">
-            <span className="text-blue-600 font-semibold text-xs uppercase tracking-widest">Cómo trabajamos</span>
+          <div className={`text-center ${HEADER_MB}`}>
+            <span className={LABEL_LIGHT}>Cómo trabajamos</span>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-2">
               Simple y sin vueltas
             </h2>
           </div>
         </FadeUp>
 
-        <div className="grid md:grid-cols-3 gap-8 relative">
-          {/* Connector line (desktop) */}
-          <div className="hidden md:block absolute top-8 left-[calc(16.66%+16px)] right-[calc(16.66%+16px)] h-0.5 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-200" />
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+          <SlideLeft>
+            <div className="relative rounded-2xl overflow-hidden shadow-xl">
+              <Image
+                src="/images/about-tech.jpg"
+                alt="Técnicos trabajando en equipos de aire acondicionado"
+                width={600}
+                height={400}
+                className="object-cover w-full h-[320px] lg:h-[380px]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0c4a6e]/40 via-transparent to-transparent" />
+            </div>
+          </SlideLeft>
 
-          <StaggerContainer className="contents">
-            {steps.map(({ num, title, desc }) => (
-              <StaggerItem key={num}>
-                <div className="flex flex-col items-center text-center relative">
-                  <div className="w-16 h-16 rounded-full gradient-hero flex items-center justify-center text-white font-black text-xl mb-5 shadow-lg relative z-10">
-                    {num}
+          <SlideRight>
+            <div className="space-y-8">
+              {steps.map(({ num, icon: Icon, title, desc }) => (
+                <div key={num} className="flex gap-4 items-start group">
+                  <div className="shrink-0 relative">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0c4a6e] to-[#0e7490] flex items-center justify-center shadow-lg shadow-cyan-900/20 group-hover:shadow-cyan-500/20 transition-shadow">
+                      <Icon size={ICON_LG - 4} className="text-cyan-300" />
+                    </div>
+                    <span className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-cyan-400 text-[#0a1628] text-[10px] font-bold flex items-center justify-center">
+                      {num}
+                    </span>
                   </div>
-                  <h3 className="font-bold text-slate-900 text-lg mb-2">{title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed max-w-[200px]">{desc}</p>
+                  <div className="pt-1">
+                    <h3 className="font-bold text-slate-900 text-base mb-1">{title}</h3>
+                    <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
+                  </div>
                 </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+              ))}
+            </div>
+          </SlideRight>
         </div>
 
-        {/* Bottom note */}
-        <p className="text-center text-slate-400 text-xs mt-12">
-          Técnico Matriculado · Cámara Argentina de Calefacción, Aire Acondicionado y Refrigeración
-        </p>
+        <FadeUp delay={0.2}>
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-200 bg-white text-xs text-slate-500">
+              <ShieldCheck size={ICON_SM} className="text-cyan-500" />
+              Técnico Matriculado · Cámara Argentina de Calefacción, Aire Acondicionado y Refrigeración
+            </div>
+          </div>
+        </FadeUp>
       </div>
     </section>
   );

@@ -1,9 +1,14 @@
 "use client";
 
+import { useRef } from "react";
 import { Phone } from "lucide-react";
-import { FadeIn, FadeUp, StaggerContainer, StaggerItem } from "@/components/ui/Motion";
+import { useScroll, useTransform, motion } from "framer-motion";
+import Image from "next/image";
+import { FadeIn, FadeUp, StaggerContainer, StaggerItem, AnimatedLink } from "@/components/ui/Motion";
+import AnimatedCounter from "@/components/AnimatedCounter";
+import { WA_URL, PHONE_NUMBER } from "@/lib/constants";
+import { BTN_LG, ICON_SM } from "@/lib/design-tokens";
 
-const WA_NUMBER = "543794348893";
 const WA_MSG = "Hola Pablo, me contacto desde tu página web. Quisiera solicitar un presupuesto gratuito.";
 
 const WA_ICON = (
@@ -13,94 +18,120 @@ const WA_ICON = (
 );
 
 const stats = [
-  { value: "Split & Ventana", label: "Equipos" },
-  { value: "Matriculado", label: "Técnico certificado" },
-  { value: "Gratis", label: "Presupuesto" },
+  { value: 10, suffix: "+", label: "Años de experiencia" },
+  { value: 24, suffix: "hs", label: "Respuesta garantizada" },
 ];
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollY } = useScroll();
+  const imgY = useTransform(scrollY, [0, 600], [0, 60]);
+  const contentOpacity = useTransform(scrollY, [0, 500], [1, 0]);
+  const contentY = useTransform(scrollY, [0, 600], [0, 80]);
+
   return (
     <section
+      ref={sectionRef}
       id="inicio"
-      className="gradient-hero relative min-h-screen flex items-center justify-center pt-20 pb-24 overflow-hidden"
+      className="relative min-h-screen flex items-center pt-20 pb-32 overflow-hidden bg-[#020617]"
     >
-      {/* Subtle dot pattern */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.06]"
-        style={{
-          backgroundImage: `radial-gradient(circle, white 1px, transparent 1px)`,
-          backgroundSize: "40px 40px",
-        }}
-      />
+      {/* Background image with parallax */}
+      <motion.div className="absolute inset-0" style={{ y: imgY }}>
+        <Image
+          src="/images/hero-bg.jpg"
+          alt="Interior moderno climatizado"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/90 via-[#020617]/70 to-[#020617]/50" />
+      </motion.div>
 
-      <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
-        {/* Badge */}
-        <FadeIn delay={0}>
-          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-4 py-1.5 mb-8 text-sm font-medium text-white/90">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            Corrientes Capital · Técnico Matriculado
-          </div>
-        </FadeIn>
-
-        {/* Headline */}
-        <FadeUp delay={0.1}>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-5">
-            Tu aire acondicionado,<br />
-            <span className="text-blue-200">en manos expertas.</span>
-          </h1>
-        </FadeUp>
-
-        {/* Subtitle — one line */}
-        <FadeUp delay={0.2}>
-          <p className="text-lg text-blue-100/80 mb-10 max-w-lg mx-auto">
-            Instalación, mantenimiento y reparación en Corrientes Capital.
-          </p>
-        </FadeUp>
-
-        {/* CTAs */}
-        <FadeUp delay={0.3}>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
-              href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_MSG)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-whatsapp flex items-center justify-center gap-2.5 text-white font-bold px-8 py-4 rounded-full text-base shadow-xl"
-            >
-              {WA_ICON}
-              Pedir presupuesto gratis
-            </a>
-            <a
-              href="tel:+543794348893"
-              className="flex items-center justify-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 text-white font-semibold px-8 py-4 rounded-full text-base hover:bg-white/25 transition-colors"
-            >
-              <Phone size={17} />
-              Llamar ahora
-            </a>
-          </div>
-        </FadeUp>
-
-        {/* Stats row */}
-        <StaggerContainer
-          className="mt-14 grid grid-cols-3 gap-4 max-w-md mx-auto"
-          delay={0.4}
-        >
-          {stats.map(({ value, label }) => (
-            <StaggerItem key={label}>
-              <div className="text-center">
-                <p className="text-white font-bold text-lg leading-tight">{value}</p>
-                <p className="text-blue-200/70 text-xs mt-0.5">{label}</p>
+      {/* Content */}
+      <motion.div
+        className="max-w-6xl mx-auto px-6 w-full relative z-10"
+        style={{ y: contentY, opacity: contentOpacity }}
+      >
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left — Text */}
+          <div className="text-center lg:text-left">
+            <FadeIn delay={0}>
+              <div className="inline-flex items-center gap-2 glass rounded-full px-5 py-2 mb-8 text-sm font-medium text-white/80">
+                <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                Corrientes Capital · Técnico Matriculado
               </div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
-      </div>
+            </FadeIn>
 
-      {/* Wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 40 C360 80 1080 0 1440 40 L1440 80 L0 80 Z" fill="white" />
-        </svg>
-      </div>
+            <FadeUp delay={0.08}>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.05] tracking-tight mb-5">
+                Tu aire acondicionado,<br />
+                <span className="text-gradient-ice">en manos expertas.</span>
+              </h1>
+            </FadeUp>
+
+            <FadeUp delay={0.16}>
+              <p className="text-lg text-slate-300/90 mb-10 max-w-lg mx-auto lg:mx-0">
+                Instalación, mantenimiento y reparación de equipos Split y Ventana en Corrientes Capital.
+              </p>
+            </FadeUp>
+
+            <FadeUp delay={0.24}>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+                <AnimatedLink
+                  href={WA_URL(WA_MSG)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`btn-whatsapp flex items-center justify-center gap-2.5 text-white ${BTN_LG} shadow-lg`}
+                >
+                  {WA_ICON}
+                  Pedir presupuesto gratis
+                </AnimatedLink>
+                <AnimatedLink
+                  href={`tel:${PHONE_NUMBER}`}
+                  className={`flex items-center justify-center gap-2 glass text-white ${BTN_LG} hover:bg-white/10`}
+                >
+                  <Phone size={ICON_SM} />
+                  Llamar ahora
+                </AnimatedLink>
+              </div>
+            </FadeUp>
+
+            {/* Stats */}
+            <StaggerContainer className="mt-14 flex gap-10 justify-center lg:justify-start" delay={0.35}>
+              {stats.map(({ value, suffix, label }) => (
+                <StaggerItem key={label}>
+                  <div>
+                    <p className="text-3xl md:text-4xl font-bold text-white leading-tight">
+                      <AnimatedCounter target={value} suffix={suffix} />
+                    </p>
+                    <p className="text-slate-400 text-xs mt-1 uppercase tracking-wider font-medium">{label}</p>
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
+
+          {/* Right — Image */}
+          <div className="hidden lg:block">
+            <FadeIn delay={0.3}>
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/40 border border-white/10">
+                <Image
+                  src="/images/hero-interior.jpg"
+                  alt="Hogar moderno con climatización profesional"
+                  width={600}
+                  height={400}
+                  className="object-cover w-full h-[360px]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/50 via-transparent to-transparent" />
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#020617] to-transparent pointer-events-none" />
     </section>
   );
 }
